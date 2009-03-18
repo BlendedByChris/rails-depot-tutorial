@@ -37,7 +37,15 @@ h1 {
 }
 
 #product-list .list-description dd {
-        margin: 0;
+    margin: 0;
+}
+
+#product-list .price {
+    width:        10%;
+    font-size:    small;
+    text-align:   right;
+    padding: 0em 0em 0em 1em;
+    vertical-align: middle;
 }
 
 #product-list .list-actions {
