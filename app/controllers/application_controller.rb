@@ -4,7 +4,12 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  before_filter :prepare_time_for_display
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+
+  def prepare_time_for_display
+    @current_time = Time.now
+  end
 end

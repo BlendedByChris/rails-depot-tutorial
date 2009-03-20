@@ -19,7 +19,7 @@
       <a href="http://www..../faq">Questions</a><br />
       <a href="http://www..../news">News</a><br />
       <a href="http://www..../contact">Contact</a><br />
-
+      <p>The time is:<br /><%= @current_time.strftime("%B %d %Y, %I:%M %p") %></p>
     </div>
     <div id="main">
       <%= yield :layout %><!-- <label id="code.depot.e.include"/> -->
