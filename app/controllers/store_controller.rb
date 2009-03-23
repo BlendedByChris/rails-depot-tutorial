@@ -1,12 +1,19 @@
 class StoreController < ApplicationController
   def index
     @products = Product.find_products_for_sale
+    @cart = find_cart
+
+    @count = increment_counter
   end
 
   def add_to_cart
+    session[:counter] = 0
     product = Product.find(params[:id])
     @cart = find_cart
-    @cart.add_product(product)
+    @current_item = @cart.add_product(product)
+    respond_to do |format|
+      format.js
+    end
   rescue ActiveRecord::RecordNotFound
     logger.error("Attempt to access invalid product #{params[:id]}")
     redirect_to_index "Invalid product"
@@ -19,13 +26,21 @@ class StoreController < ApplicationController
 
   private
 
-  def redirect_to_index(msg)
+  def redirect_to_index(msg = nil)
     flash[:notice] = msg
     redirect_to :action => 'index'
   end
 
   def find_cart
     session[:cart] ||= Cart.new
+  end
+
+  def increment_counter
+    if session[:counter].nil?
+      session[:counter] = 0
+    else
+      session[:counter] += 1
+    end
   end
 
 end

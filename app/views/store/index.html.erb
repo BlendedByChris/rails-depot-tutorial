@@ -1,5 +1,5 @@
 <h1>Your Pragmatic Catalog</h1>
-
+<% if @count > 5 %>You've been here <%= pluralize(@count, "time") %><% end %>
 <% for product in @products %>
   <div class="entry">
     <%= link_to image_tag(product.image_url,
@@ -11,9 +11,9 @@
     <%= product.description %>
     <div class="price-line">
       <span class="price"><%= number_to_currency(product.price) %></span>
-      <%= button_to "Add to Cart", 
-                    :action => 'add_to_cart',
-                    :id => product %>
+      <% form_remote_tag :url => { :action => 'add_to_cart', :id => product } do %>
+        <%= submit_tag "Add to Cart" %>
+      <% end %>
     </div>
   </div>
 <% end %>
