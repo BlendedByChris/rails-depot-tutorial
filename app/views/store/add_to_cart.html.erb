@@ -1,6 +1,17 @@
 <h2>Your Pragmatic Cart</h2>
-<ul>
+
+<table>
   <% for item in @cart.items %>
-    <li><%=h item.quantity %>&times; <%=h item.title %></li>
+    <tr>
+      <td><%= item.quantity %></td>
+      <td><%=h item.title %></td>
+      <td><%= number_to_currency(item.price) %></td>
+    </tr>
   <% end %>
-</ul>
+  <tr class="total-line">
+    <td colspan="2">Total</td>
+    <td class="total-cell"><%= number_to_currency(@cart.total_price) %>  </td>
+  </tr>
+</table>
+
+<%= button_to 'Empty cart', :action => 'empty_cart' %>
