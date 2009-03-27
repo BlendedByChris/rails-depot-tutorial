@@ -2,11 +2,12 @@
 <% if @count > 5 %>You've been here <%= pluralize(@count, "time") %><% end %>
 <% for product in @products %>
   <div class="entry">
-    <%= link_to image_tag(product.image_url,
-                          { :alt => "Click to add this product to your cart",
-                            :title => "Add to Cart" }),
-                          { :action => 'add_to_cart', :id => product },
-                          :method => :post %>
+    <% form_remote_tag :url => { :action => 'add_to_cart', :id => product } do %>
+      <%= image_submit_tag product.image_url,
+                            :alt => "Click to add this product to your cart",
+                            :title => "Add to Cart",
+                            :class => 'product_picture' %>
+    <% end %>
     <h3><%=h product.title %></h3>
     <%= product.description %>
     <div class="price-line">

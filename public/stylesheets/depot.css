@@ -222,3 +222,10 @@ h1 {
     margin-bottom: 10px;
 }
 /* END:mainlayout */
+
+.product_picture {
+  width: 75px;
+  float: left;
+  text-decoration: none;
+}
+

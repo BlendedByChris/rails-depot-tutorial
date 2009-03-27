@@ -12,7 +12,8 @@ class StoreController < ApplicationController
     @cart = find_cart
     @current_item = @cart.add_product(product)
     respond_to do |format|
-      format.js
+      format.js if request.xhr?
+      format.html { redirect_to_index }
     end
   rescue ActiveRecord::RecordNotFound
     logger.error("Attempt to access invalid product #{params[:id]}")
@@ -21,13 +22,13 @@ class StoreController < ApplicationController
 
   def empty_cart
     session[:cart] = nil
-    redirect_to_index
+    redirect_to_index unless request.xhr?
   end
 
   private
 
   def redirect_to_index(msg = nil)
-    flash[:notice] = msg
+    flash[:notice] = msg if msg
     redirect_to :action => 'index'
   end
 
