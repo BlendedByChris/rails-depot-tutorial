@@ -30,12 +30,12 @@ class User < ActiveRecord::Base
 
   private
 
-  def password_not_blank
+  def password_non_blank
     errors.add(:password, "Missing password") if hashed_password.blank?
   end
 
   def create_new_salt
-    self.salt = self.object_id.to + rand.to_s
+    self.salt = self.object_id.to_s + rand.to_s
   end
 
   def self.encrypted_password(password, salt)
